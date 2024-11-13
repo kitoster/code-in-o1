@@ -1,0 +1,9 @@
+#codeDisplay, #animationDisplay {
+    border-radius: 8px;
+}
+
+#animationDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
