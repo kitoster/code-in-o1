@@ -6,6 +6,7 @@ async function loadProblems() {
         const response = await fetch('problems.json');
         problems = await response.json();
         console.log("Problems loaded:", problems); 
+        displayProblemList(problems);  // Display problems after loading
     } catch (error) {
         console.error("Error loading problems:", error);
     }
@@ -28,7 +29,7 @@ function searchProblems(query) {
 function displayCode(code) {
     const codeContent = document.getElementById('codeContent');
     codeContent.textContent = code;  // Use textContent to avoid XSS
-    Prism.highlightElement(codeContent);  // Apply Prism.js syntax highlighting
+    //Prism.highlightElement(codeContent);  // Apply Prism.js syntax highlighting
 }
 
 // Display the list of problems
@@ -47,11 +48,12 @@ function displayProblemList(problemArray) {
     });
 }
 
-
 // Event listener for the search bar
 document.getElementById('searchBar').addEventListener('input', (e) => {
     searchProblems(e.target.value);
 });
 
-// Initialize
-loadProblems();
+// DOMContentLoaded to ensure everything is loaded
+document.addEventListener("DOMContentLoaded", function () {
+    loadProblems();  // Load problems once the DOM is ready
+});
