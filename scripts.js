@@ -1,9 +1,5 @@
 let problems = [];
 
-
-
-
-
 // Load problems from JSON file
 async function loadProblems() {
     try {
@@ -72,21 +68,6 @@ function displayProblemList(problemArray) {
     });
 }
 
-// Play animations based on problem and line number
-function playAnimation(problemId, lineNumber) {
-    const circle1 = document.getElementById("circle1");
-    const circle2 = document.getElementById("circle2");
-
-    // Example animation for Two Sum problem, line 1
-    if (problemId === 1 && lineNumber === 1) {
-        gsap.to(circle1, { x: 100, duration: 1 });
-        gsap.to(circle2, { x: -100, duration: 1 });
-    }
-
-    // Add more animations for other problems/lines as needed
-    console.log(`Playing animation for Problem ID: ${problemId}, Line: ${lineNumber}`);
-}
-
 // Event listener for the search bar
 document.getElementById('searchBar').addEventListener('input', (e) => {
     searchProblems(e.target.value);
@@ -96,3 +77,36 @@ document.getElementById('searchBar').addEventListener('input', (e) => {
 document.addEventListener("DOMContentLoaded", function () {
     loadProblems();  // Load problems once the DOM is ready
 });
+
+const animations = {
+    1: { // Problem ID 1 (Two Sum)
+        1: () => { // Line 1 animation
+            gsap.to(circle1, { x: 100, duration: 1 });
+            gsap.to(circle2, { x: -100, duration: 1 });
+        },
+        // Add more line animations for problem 1 as needed
+    },
+    // Add other problem IDs
+};
+
+function playAnimation(problemId, lineNumber) {
+    const animationContainer = document.getElementById('animationContainer');
+    animationContainer.innerHTML = ''; // Clear previous animations
+
+    // Test animation for Two Sum problem, iteration line
+    if (problemId === 1 && lineNumber === 3) { // Line 3: "for i, n in enumerate(nums):"
+        console.log("Animating circle for Two Sum, Line 3");
+        const circle = document.createElement('div');
+        circle.className = 'circle'; // Add the circle class for styling
+        animationContainer.appendChild(circle);
+
+        // Animate the circle
+        gsap.fromTo(
+            circle,
+            { x: -50, y: 50, opacity: 0 },
+            { x: 50, y: -50, opacity: 1, duration: 1 }
+        );
+
+        console.log("Circle animation triggered for Two Sum, Line 3");
+    }
+}
