@@ -16,22 +16,29 @@ async function loadProblems() {
     }
 }
 
-// Search function
 function searchProblems(query) {
     const filteredProblems = problems.filter(problem =>
         problem.title.toLowerCase().includes(query.toLowerCase())
     );
 
     if (filteredProblems.length > 0) {
-        displayCode(filteredProblems[0].code);  // Display the first match
+        const { code, id, example } = filteredProblems[0];
+        displayCode(code, id, example); // Pass all required data
     } else {
-        displayCode("// No matching problem found.");
+        displayCode("// No matching problem found.", null, '');
     }
 }
 
 // Display code with clickable lines
-function displayCode(code, problemId) {
+function displayCode(code, problemId, example = '') {
     const codeContent = document.getElementById('codeContent');
+    const exampleText = document.getElementById('exampleText');
+
+    if (example) {
+        exampleText.textContent = `Example: ${example}`;
+    } else {
+        exampleText.textContent = ''; // Clear if no example
+    }
     codeContent.innerHTML = ''; // Clear previous code
 
     // Create clickable spans for each line of code
@@ -59,7 +66,7 @@ function displayProblemList(problemArray) {
         listItem.className = 'list-group-item list-group-item-action bg-dark text-light';
         listItem.textContent = problem.title;
         listItem.addEventListener('click', () => {
-            displayCode(problem.code, problem.id); // Pass problem ID for animations
+            displayCode(problem.code, problem.id, problem.example); // Pass problem ID for animations
         });
         problemList.appendChild(listItem);
     });

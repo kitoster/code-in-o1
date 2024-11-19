@@ -2,11 +2,13 @@
     {
         "id": 1,
         "title": "Two Sum",
-        "code": "function twoSum(nums, target) {\n    const map = new Map();\n    for (let i = 0; i < nums.length; i++) {\n        let complement = target - nums[i];\n        if (map.has(complement)) {\n            return [map.get(complement), i];\n        }\n        map.set(nums[i], i);\n    }\n}"
+        "code": "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        prevMap = {}\n\n        for i, n in enumerate(nums):\n            diff = target - n\n            if diff in prevMap:\n                return [prevMap[diff], i]\n            prevMap[n] = i\n        return",
+        "example": "[2,7,11,15], target = 9"
     },
     {
         "id": 2,
         "title": "Reverse Linked List",
-        "code": "function reverseList(head) {\n    let prev = null;\n    let current = head;\n    while (current) {\n        let next = current.next;\n        current.next = prev;\n        prev = current;\n        current = next;\n    }\n    return prev;\n}"
+        "code": "class Solution:\n    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        prev = None\n        current = head\n        while current:\n            next_node = current.next\n            current.next = prev\n            prev = current\n            current = next_node\n        return prev",
+        "example": "Input: [1,2,3,4,5], Output: [5,4,3,2,1]"
     }
 ]
